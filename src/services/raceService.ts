@@ -3,10 +3,6 @@ import { pool } from "../libs/mysql";
 class RaceService {
     constructor() {}
 
-    async create(data: String) {
-        return data;
-    }
-
     async find() {
         const sql = "SELECT * from carreras";
         const [result] = await pool.query(sql);
