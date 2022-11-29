@@ -2,6 +2,8 @@
 
 This API project uses my [F1 scraping project](https://github.com/Redooz/F1-Scraper) and its database, you can check it if you want.
 
+Check the [frontend](https://github.com/Redooz/Formula-1-Frontend) for this API.
+
 
 ## Build and run
 
