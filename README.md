@@ -11,7 +11,7 @@ Check the [frontend](https://github.com/Redooz/Formula-1-Frontend) for this API.
 
 1. Download the source code
 ```
-git clone https://github.com/Redooz/F1-Scraper.git
+git clone https://github.com/Redooz/F1-2022-Races-API.git
 ```
 2. Import the database into your pc, which its SQL file is located in *"database"* folder
 
