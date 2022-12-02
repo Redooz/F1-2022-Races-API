@@ -1,7 +1,7 @@
 import express, { Router, Application } from "express";
 
-import { defaultRoute } from "./defaultRouter";
-import { racesRoute } from "./racesRouter";
+import { defaultRoute } from "./defaultRouter.js";
+import { racesRoute } from "./racesRouter.js";
 
 export const routerAPI = router;
 

@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import {  RacesService } from "../services/raceService";
+import {  RacesService } from "../services/raceService.js";
 
 export const racesRoute = Router();
 

@@ -1,4 +1,4 @@
-import { pool } from "../libs/mysql";
+import { pool } from "../libs/mysql.js";
 
 class RaceService {
     constructor() {}
