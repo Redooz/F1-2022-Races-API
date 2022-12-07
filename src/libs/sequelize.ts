@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import { setupModels } from "../db/models/index.js";
 
 export const sequelize = new Sequelize({
     host: "localhost",
@@ -8,3 +9,7 @@ export const sequelize = new Sequelize({
     dialect: "mysql",
     logging: console.log
 })
+
+setupModels(sequelize);
+
+sequelize.sync();

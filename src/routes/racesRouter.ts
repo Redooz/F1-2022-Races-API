@@ -24,3 +24,39 @@ racesRoute.get("/:prix",async (req:Request, res: Response) => {
     console.log(error);
   }
 });
+
+racesRoute.post("/",async (req:Request, res: Response) => {
+  try {
+    const body = req.body;
+    const newRace = await service.create(body);
+
+    res.json(newRace)
+  } catch (error) {
+    console.log(error);
+    
+  }
+});
+
+racesRoute.patch("/:prix", async (req:Request, res: Response) => {
+  try {
+    const { prix } = req.params;
+    const body = req.body;
+
+    const race = await service.update(prix,body);
+
+    res.json(race);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+racesRoute.delete("/:prix", async (req:Request, res: Response) => {
+  try {
+    const { prix } = req.params;
+
+    await service.delete(prix);
+    res.status(201).json({prix});
+  } catch (error) {
+    console.log(error);
+  }
+});

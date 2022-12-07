@@ -1,22 +1,43 @@
+import { Race } from "../db/models/raceModel.js";
 import { sequelize } from "../libs/sequelize.js";
 
 class RaceService {
     constructor() {}
 
-    async find() {
-        const query:string = "SELECT * from carreras";
-        const [result] = await sequelize.query(query);
+    async create(data):Promise<Race> {
+        const newRace = await sequelize.models.Race.create(data);
+        return newRace;
+    }
+
+    async find():Promise<Array<Race>> {
+        const result: Array<Race> = await sequelize.models.Race.findAll();
 
         return result;
     }
     
-    async findOne(prix: string){
-        const query:string = `SELECT * from carreras where prix = "${prix}"`;
-        const [result] = await sequelize.query(query);
+    async findOne(prix: string):Promise<Race> {       
+        const race:Race = await sequelize.models.Race.findByPk(prix);
+
+        if (!race) {
+            // ! 
+        }
+
+        return race;
+    }
+
+    async update(prix: string, changes) {
+        const race:Race = await this.findOne(prix);
+        const result = await race.update(changes);
 
         return result;
     }
-        
+
+    async delete(prix: string){
+        const race:Race = await this.findOne(prix);
+        await race.destroy();
+
+        return {prix};
+    }
 }
 
 

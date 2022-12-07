@@ -11,6 +11,7 @@ const corsOptions = {
     optionSuccessStatus: 200
 }
 
+app.use(express.json());
 app.use(cors(corsOptions));
 
 routerAPI(app);
