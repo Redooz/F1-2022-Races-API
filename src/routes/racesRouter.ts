@@ -1,43 +1,42 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import {  RacesService } from "../services/raceService.js";
 
 export const racesRoute = Router();
 
 const service = new RacesService();
 
-racesRoute.get('/', async (req: Request, res: Response) => {
+racesRoute.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const races = await service.find();
     res.json(races);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 
-racesRoute.get("/:prix",async (req:Request, res: Response) => {
+racesRoute.get("/:prix",async (req:Request, res: Response, next: NextFunction) => {
   try {
     const { prix } = req.params;
     const race = await service.findOne(prix);
 
     res.json(race);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 
-racesRoute.post("/",async (req:Request, res: Response) => {
+racesRoute.post("/",async (req:Request, res: Response, next: NextFunction) => {
   try {
     const body = req.body;
     const newRace = await service.create(body);
 
     res.json(newRace)
   } catch (error) {
-    console.log(error);
-    
+    next(error);
   }
 });
 
-racesRoute.patch("/:prix", async (req:Request, res: Response) => {
+racesRoute.patch("/:prix", async (req:Request, res: Response, next: NextFunction) => {
   try {
     const { prix } = req.params;
     const body = req.body;
@@ -46,17 +45,17 @@ racesRoute.patch("/:prix", async (req:Request, res: Response) => {
 
     res.json(race);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 
-racesRoute.delete("/:prix", async (req:Request, res: Response) => {
+racesRoute.delete("/:prix", async (req:Request, res: Response, next: NextFunction) => {
   try {
     const { prix } = req.params;
 
     await service.delete(prix);
     res.status(201).json({prix});
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });

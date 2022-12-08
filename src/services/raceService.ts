@@ -1,5 +1,6 @@
 import { Race } from "../db/models/raceModel.js";
 import { sequelize } from "../libs/sequelize.js";
+import  boom from '@hapi/boom';
 
 class RaceService {
     constructor() {}
@@ -19,7 +20,7 @@ class RaceService {
         const race:Race = await sequelize.models.Race.findByPk(prix);
 
         if (!race) {
-            // ! 
+            throw boom.notFound("Race not found")
         }
 
         return race;
