@@ -1,5 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import {  RacesService } from "../services/raceService.js";
+import { validatorHandler } from "../middlewares/validatorHandler.js";
+import { getRaceSchema, createRaceSchema, updateRaceSchema } from "../schemas/raceSchema.js";
 
 export const racesRoute = Router();
 
@@ -14,7 +16,7 @@ racesRoute.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-racesRoute.get("/:prix",async (req:Request, res: Response, next: NextFunction) => {
+racesRoute.get("/:prix", validatorHandler(getRaceSchema, "params"), async (req:Request, res: Response, next: NextFunction) => {
   try {
     const { prix } = req.params;
     const race = await service.findOne(prix);
@@ -25,7 +27,7 @@ racesRoute.get("/:prix",async (req:Request, res: Response, next: NextFunction) =
   }
 });
 
-racesRoute.post("/",async (req:Request, res: Response, next: NextFunction) => {
+racesRoute.post("/", validatorHandler(createRaceSchema, "body"), async (req:Request, res: Response, next: NextFunction) => {
   try {
     const body = req.body;
     const newRace = await service.create(body);
@@ -36,17 +38,18 @@ racesRoute.post("/",async (req:Request, res: Response, next: NextFunction) => {
   }
 });
 
-racesRoute.patch("/:prix", async (req:Request, res: Response, next: NextFunction) => {
-  try {
-    const { prix } = req.params;
-    const body = req.body;
+racesRoute.patch("/:prix", validatorHandler(getRaceSchema, "params"), validatorHandler(updateRaceSchema, "body"),
+  async (req:Request, res: Response, next: NextFunction) => {
+    try {
+      const { prix } = req.params;
+      const body = req.body;
 
-    const race = await service.update(prix,body);
+      const race = await service.update(prix,body);
 
-    res.json(race);
-  } catch (error) {
-    next(error);
-  }
+      res.json(race);
+    } catch (error) {
+      next(error);
+    }
 });
 
 racesRoute.delete("/:prix", async (req:Request, res: Response, next: NextFunction) => {
